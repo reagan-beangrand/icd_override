@@ -129,9 +129,10 @@ app_license = "mit"
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
+override_doctype_class = {
 # 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+    "Manifest": "icd_override.custom.custom_manifest.CustomManifest"
+ }
 
 # Document Events
 # ---------------
@@ -174,9 +175,9 @@ app_license = "mit"
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "icd_override.event.get_events"
-# }
+#override_whitelisted_methods = {
+ 	#"frappe.desk.doctype.event.event.get_events": "icd_override.event.get_events"
+#}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
@@ -246,4 +247,9 @@ app_license = "mit"
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
+
+fixtures =[
+    #{"dt": "Custom Field", "filters": [["module", "=", "ICD Customization"]]},
+    #{"dt": "Property Setter", "filters": [["module", "=", "ICD Customization"]]}    
+]
 

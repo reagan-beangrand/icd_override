@@ -1,0 +1,48 @@
+{
+ "cards": [
+  {
+   "card": "Total Number of Containers"
+  },
+  {
+   "card": "Container In Yard"
+  },
+  {
+   "card": "Container At Inspection"
+  },
+  {
+   "card": "Container At Gatepass"
+  },
+  {
+   "card": "Number of Container by Size (20FT)"
+  },
+  {
+   "card": "Container by Size (40FT)"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Containers InYard By Status",
+   "width": "Half"
+  },
+  {
+   "chart": "Top Customers By Revenue",
+   "width": "Half"
+  },
+  {
+   "chart": "Daily Truck Entry Exits",
+   "width": "Full"
+  }
+ ],
+ "creation": "2025-12-31 20:58:09.571105",
+ "dashboard_name": "Operational Dashboard",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2026-01-01 17:21:11.833516",
+ "modified_by": "Administrator",
+ "module": "ICD Customization",
+ "name": "Operational Dashboard",
+ "owner": "Administrator"
+}

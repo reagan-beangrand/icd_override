@@ -1,0 +1,13 @@
+{
+ "creation": "2026-01-01 16:44:01.703802",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart Source",
+ "idx": 0,
+ "modified": "2026-01-01 16:44:01.703802",
+ "modified_by": "Administrator",
+ "module": "ICD Customization",
+ "name": "Top Customers By Revenue",
+ "owner": "Administrator",
+ "source_name": "Top Customers By Revenue",
+ "timeseries": 0
+}

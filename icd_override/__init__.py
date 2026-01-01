@@ -1,1 +1,13 @@
 __version__ = "0.0.1"
+
+from icd_override.custom.report.gate_out_pass.custom_gate_out_pass import execute as custom_gate_out_pass_execute
+import icd_tz.icd_tz.report.gate_out_pass.gate_out_pass
+from icd_override.custom.report.exited_containers.custom_exited_containers import execute as custom_exited_containers_execute
+import icd_tz.icd_tz.report.exited_containers.exited_containers
+from icd_override.custom.report.current_container_stock.custom_current_container_stock import execute as custom_current_container_stock_execute
+import icd_tz.icd_tz.report.current_container_stock.current_container_stock
+
+
+icd_tz.icd_tz.report.gate_out_pass.gate_out_pass.execute = custom_gate_out_pass_execute
+icd_tz.icd_tz.report.exited_containers.exited_containers.execute = custom_exited_containers_execute
+icd_tz.icd_tz.report.current_container_stock.current_container_stock.execute = custom_current_container_stock_execute

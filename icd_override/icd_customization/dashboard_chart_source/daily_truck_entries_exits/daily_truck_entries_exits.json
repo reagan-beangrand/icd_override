@@ -1,0 +1,13 @@
+{
+ "creation": "2026-01-01 17:08:52.227681",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart Source",
+ "idx": 0,
+ "modified": "2026-01-01 17:08:52.227681",
+ "modified_by": "Administrator",
+ "module": "ICD Customization",
+ "name": "Daily Truck Entries Exits",
+ "owner": "Administrator",
+ "source_name": "Daily Truck Entries Exits",
+ "timeseries": 1
+}
