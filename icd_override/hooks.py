@@ -250,6 +250,8 @@ override_doctype_class = {
 
 fixtures =[
     #{"dt": "Custom Field", "filters": [["module", "=", "ICD Customization"]]},
-    #{"dt": "Property Setter", "filters": [["module", "=", "ICD Customization"]]}       
+    #{"dt": "Property Setter", "filters": [["module", "=", "ICD Customization"]]}   
+    #{"doctype": "Custom DocPerm", "filters": [["parent", "in", ["Container Movement Order"]]]}  
+    #{"doctype": "DocPerm", "filters": {"parent": "Container Movement Order"}}       
 ]
 
