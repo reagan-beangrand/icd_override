@@ -131,7 +131,8 @@ app_license = "mit"
 
 override_doctype_class = {
 # 	"ToDo": "custom_app.overrides.CustomToDo"
-    "Manifest": "icd_override.custom.custom_manifest.CustomManifest"
+    "Manifest": "icd_override.custom.custom_manifest.CustomManifest",
+    "Gate Pass": "icd_override.custom.custom_gate_pass.CustomGatePass"
  }
 
 # Document Events
