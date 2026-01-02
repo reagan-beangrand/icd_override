@@ -3,7 +3,7 @@ import frappe
 from frappe import _
 
 def execute(filters=None):
-    frappe.msgprint("custom function called")
+    #frappe.msgprint("custom function called")
     columns, data = get_columns(), get_data(filters)
     return columns, data
 
