@@ -2,7 +2,7 @@ app_name = "icd_override"
 app_title = "ICD Customization"
 app_publisher = "BGCCL"
 app_description = "ICD app customozation"
-app_email = "test@test.com"
+app_email = "dipak.s@bgccerp.com"
 app_license = "mit"
 
 # Apps

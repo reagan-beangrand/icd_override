@@ -1,0 +1,88 @@
+{
+ "charts": [
+  {
+   "chart_name": "Containers InYard By Status",
+   "label": "Containers InYard By Status"
+  },
+  {
+   "chart_name": "Daily Truck Entry Exits",
+   "label": "Daily Truck Entry Exits"
+  },
+  {
+   "chart_name": "Top Customers By Revenue",
+   "label": "Top Customers By Revenue"
+  }
+ ],
+ "content": "[{\"id\":\"nLS8kfts5t\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Dashboards</span>\",\"col\":12}},{\"id\":\"QhpJmCK-pO\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Number of Containers\",\"col\":4}},{\"id\":\"QQUJ1uH2aR\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Container by Size (20FT)\",\"col\":4}},{\"id\":\"wP2_eZzhN_\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Container by Size (40FT)\",\"col\":4}},{\"id\":\"DNLvNehUOu\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"OzxXnwpimL\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Containers InYard By Status\",\"col\":6}},{\"id\":\"46VpxR_x0D\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Daily Truck Entry Exits\",\"col\":6}},{\"id\":\"uVU4dsaIaS\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Top Customers By Revenue\",\"col\":12}},{\"id\":\"2Cfk4HzYNL\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"8ey1-jNHfT\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports</b></span>\",\"col\":12}},{\"id\":\"CQ80D5GE2n\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Container Booking\",\"col\":3}},{\"id\":\"SCZkcskWb7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Current Container Stock\",\"col\":3}},{\"id\":\"pk0l9K8i3T\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Received Containers\",\"col\":3}},{\"id\":\"H7-KU-dcIF\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Gate Out Pass\",\"col\":3}}]",
+ "creation": "2026-01-01 17:22:48.766292",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "dashboard",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Container Reports & Dashboards",
+ "links": [],
+ "modified": "2026-01-02 12:58:58.460794",
+ "modified_by": "Administrator",
+ "module": "ICD Customization",
+ "name": "Container Reports & Dashboards",
+ "number_cards": [
+  {
+   "label": "Number of Containers",
+   "number_card_name": "Total Number of Containers"
+  },
+  {
+   "label": "Container by Size (20FT)",
+   "number_card_name": "Number of Container by Size (20FT)"
+  },
+  {
+   "label": "Container by Size (40FT)",
+   "number_card_name": "Container by Size (40FT)"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "ICD",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 36.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Container Booking",
+   "link_to": "Container Booking",
+   "report_ref_doctype": "In Yard Container Booking",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Current Container Stock",
+   "link_to": "Current Container Stock",
+   "report_ref_doctype": "Container",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Received Containers",
+   "link_to": "Received Containers",
+   "report_ref_doctype": "Container",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Gate Out Pass",
+   "link_to": "Gate Out Pass",
+   "report_ref_doctype": "Gate Pass",
+   "type": "Report"
+  }
+ ],
+ "title": "Container Reports & Dashboards"
+}
