@@ -10,17 +10,24 @@
  "dynamic_filters_json": "[]",
  "filters_json": "[]",
  "group_by_type": "Count",
- "idx": 0,
+ "idx": 1,
  "is_public": 1,
  "is_standard": 1,
- "modified": "2026-01-01 16:33:06.863686",
+ "modified": "2026-01-03 14:12:13.187245",
  "modified_by": "Administrator",
  "module": "ICD Customization",
  "name": "Containers InYard By Status",
  "number_of_groups": 0,
  "owner": "Administrator",
  "parent_document_type": "",
- "roles": [],
+ "roles": [
+  {
+   "role": "ICD Manager"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
  "show_values_over_chart": 0,
  "source": "Containers InYard By Status",
  "time_interval": "Yearly",
