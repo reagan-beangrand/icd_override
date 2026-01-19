@@ -926,5 +926,21 @@
   "property_type": "Check",
   "row_name": null,
   "value": "0"
+ },
+ {
+  "default_value": null,
+  "doc_type": "ICD TZ Settings",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "default_price_list",
+  "is_system_generated": 0,
+  "modified": "2026-01-18 21:21:12.634703",
+  "module": "ICD Customization",
+  "name": "ICD TZ Settings-default_price_list-Label",
+  "property": "label",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "Default Selling Price List"
  }
 ]

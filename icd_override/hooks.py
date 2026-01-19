@@ -50,6 +50,9 @@ app_license = "mit"
 doctype_js = {
     "Purchase Order" : "public/js/custom_purchase_order.js"
     }
+doctype_list_js = {
+    "Purchase Order": "public/js/custom_purchase_order_list.js",
+    }
 
 # Svg Icons
 # ------------------
@@ -256,6 +259,7 @@ fixtures =[
     #{"dt": "Custom Field", "filters": [["module", "=", "ICD Customization"]]},
     #{"dt": "Property Setter", "filters": [["module", "=", "ICD Customization"]]}   
     #{"doctype": "Custom DocPerm", "filters": [["parent", "in", ["Container Movement Order"]]]}  
-    #{"doctype": "DocPerm", "filters": {"parent": "Container Movement Order"}}       
+    #{"doctype": "DocPerm", "filters": {"parent": "Container Movement Order"}}
+       
 ]
 
