@@ -141,7 +141,15 @@ class CustomManifest(Manifest):
                 master_bl = self.append("master_bl", {})
                 master_bl.m_bl_no = row[0]
                 master_bl.cargo_classification = row[1]
+                if(row[1].strip().upper() == "IM"):
+                    master_bl.custom_cargo_type = "Import"
+                else:
+                    master_bl.custom_cargo_type = "Transit"
                 master_bl.bl_type = row[2]
+                if(row[2].strip().upper() == "C"):
+                    master_bl.custom_bltype = "Console"
+                else:
+                    master_bl.custom_bltype = "Simple"
                 master_bl.place_of_destination = row[3]
                 master_bl.place_of_delivery = row[4]
                 master_bl.oil_type = row[5]
@@ -159,6 +167,51 @@ class CustomManifest(Manifest):
                 master_bl.freight_charge = row[17]
                 master_bl.freight_currency = row[18]
                 master_bl.imdg_code = row[19]
+                if(row[19] is not None and row[19] != ""):
+                    imdgcode = row[19]
+                    match imdgcode:
+                        case 1.1:
+                            master_bl.custom_imdg_classification = "1.1 (Explosives Substances and Articles Which Have A Mass Explosion Hazard)"
+                        case 1.2:
+                            master_bl.custom_imdg_classification = "1.2 (Explosives Substances and Articles Which Have A Projection Hazard)"
+                        case 1.3:
+                            master_bl.custom_imdg_classification = "1.3 (Explosives Substances and Articles Which Have A Fire Hazard)"
+                        case 1.4:
+                            master_bl.custom_imdg_classification = "1.4 (Explosives Substances Which Present No Significant Hazard)"
+                        case 1.5:
+                            master_bl.custom_imdg_classification = "1.5 (Explosives Very Insensitive Substances Which Have A Mass Explosion Hazard)"
+                        case 1.6:
+                            master_bl.custom_imdg_classification = "1.6 (Explosives Extremely Insensitive Articles Which Do Not Have Mass Explosion Hazard)"
+                        case 2.1:
+                            master_bl.custom_imdg_classification = "2.1 (Flammable Gases)"
+                        case 2.2:
+                            master_bl.custom_imdg_classification = "2.2 (Non-Toxic, Non-Flammable Gases)"
+                        case 2.3:
+                            master_bl.custom_imdg_classification = "2.3 (Poisonous Gases)"
+                        case 3:
+                            master_bl.custom_imdg_classification = "3 (Flammable Liquids)"
+                        case 4.1:
+                            master_bl.custom_imdg_classification = "4.1 (Flammable Solids,Self-Reactive Substances And Desensitized Explosives)"
+                        case 4.2:
+                            master_bl.custom_imdg_classification = "4.2 (Flammable Solids, Substances Liable To Spontaneous Combustion)"
+                        case 4.3:
+                            master_bl.custom_imdg_classification = "4.3 (Flammable Solids,Substances Which, In Contact With Water Emit Flammable Gases)"
+                        case 5.1:
+                            master_bl.custom_imdg_classification = "5.1 (Oxidizing Substances)"
+                        case 5.2:
+                            master_bl.custom_imdg_classification = "5.2 (Organic Peroxides)"
+                        case 6.1:
+                            master_bl.custom_imdg_classification = "6.1 (Poisonous Substances)"
+                        case 6.2:
+                            master_bl.custom_imdg_classification = "6.2 (Infectious Substances)"
+                        case 7:
+                            master_bl.custom_imdg_classification = "7 (Radioactive Material)"
+                        case 8:
+                            master_bl.custom_imdg_classification = "8 (Corrosive Substances)"
+                        case 9:
+                            master_bl.custom_imdg_classification = "9 (Miscellaneous Dangerous Substances and Articles)"
+                        case _:
+                            master_bl.custom_imdg_classification = ""
                 master_bl.packing_type = row[20]
                 master_bl.shipping_agent_code = row[21]
                 master_bl.shipping_agent_name = row[22]
@@ -180,6 +233,25 @@ class CustomManifest(Manifest):
                 master_bl.shipping_mark = row[38]
                 master_bl.net_weight = row[39]
                 master_bl.net_weight_unit = row[40]
+                if(row[41] is not None and row[41] != ""):
+                    nomination_type = row[41]
+                    match nomination_type:
+                        case 1:
+                            master_bl.custom_source = "Private Nomination"
+                        case 2:
+                            master_bl.custom_source = "Shipping Line Nomination"
+                        case 3:
+                            master_bl.custom_source = "Private DG Nomination"
+                        case 4:
+                            master_bl.custom_source = "Port Extension Direct Delivery"                            
+                        case 5:
+                            master_bl.custom_source = "Port Extension"
+                        case 6:
+                            master_bl.custom_source = "DG Shipping Line Nomination"
+                        case 7:
+                            master_bl.custom_source = "DG Port Extension"
+                        case _:
+                            master_bl.custom_source = ""
 
     def populate_containers(self, filtered_rows_data, containers_sheet):
         self.containers = []

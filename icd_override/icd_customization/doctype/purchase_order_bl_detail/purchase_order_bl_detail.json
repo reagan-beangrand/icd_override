@@ -1,0 +1,51 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:POBL-{MM}-{YY}-{####}",
+ "creation": "2026-01-20 22:48:48.841971",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "charge_description",
+  "bol",
+  "number_of_container_s"
+ ],
+ "fields": [
+  {
+   "fieldname": "bol",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "BOL"
+  },
+  {
+   "fieldname": "number_of_container_s",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Number of Container (s)"
+  },
+  {
+   "fieldname": "charge_description",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Charge Description",
+   "length": 1000
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-01-22 12:05:16.313106",
+ "modified_by": "Administrator",
+ "module": "ICD Customization",
+ "name": "Purchase Order BL Detail",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

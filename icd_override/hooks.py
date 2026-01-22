@@ -48,10 +48,10 @@ app_license = "mit"
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 doctype_js = {
-    "Purchase Order" : "public/js/custom_purchase_order.js"
+    #"Purchase Order" : "public/js/custom_purchase_order.js"
     }
 doctype_list_js = {
-    "Purchase Order": "public/js/custom_purchase_order_list.js",
+    #"Purchase Order": "public/js/custom_purchase_order_list.js",
     }
 
 # Svg Icons
@@ -257,9 +257,11 @@ override_doctype_class = {
 
 fixtures =[
     #{"dt": "Custom Field", "filters": [["module", "=", "ICD Customization"]]},
-    #{"dt": "Property Setter", "filters": [["module", "=", "ICD Customization"]]}   
+    #{"dt": "Property Setter", "filters": [["module", "=", "ICD Customization"]]}, 
     #{"doctype": "Custom DocPerm", "filters": [["parent", "in", ["Container Movement Order"]]]}  
     #{"doctype": "DocPerm", "filters": {"parent": "Container Movement Order"}}
-       
+    #{"doctype":"Global Search Settings"},
+    #{"doctype":"IMDG Classification"},
+    #{"doctype":"Nomination Type"},
+    #{"doctype":"Purchase Order BL Detail"},
 ]
-
