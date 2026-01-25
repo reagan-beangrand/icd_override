@@ -48,10 +48,13 @@ app_license = "mit"
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 doctype_js = {
-    #"Purchase Order" : "public/js/custom_purchase_order.js"
+    "Container Movement Order" : "public/js/custom_container_movement_order.js",
+    "Sales Order" : "public/js/custom_sales_order.js",
+    "Container Inspection" : "public/js/custom_container_inspection.js"
     }
 doctype_list_js = {
-    #"Purchase Order": "public/js/custom_purchase_order_list.js",
+    "Sales Order": "public/js/custom_sales_order_list.js",
+    #"Purchase Order": "public/js/custom_purchase_order_list.js",    
     }
 
 # Svg Icons
@@ -138,20 +141,26 @@ doctype_list_js = {
 override_doctype_class = {
 # 	"ToDo": "custom_app.overrides.CustomToDo"
     "Manifest": "icd_override.custom.custom_manifest.CustomManifest",
-    "Gate Pass": "icd_override.custom.custom_gate_pass.CustomGatePass"
+    "Gate Pass": "icd_override.custom.custom_gate_pass.CustomGatePass",
+    "Sales Order": "icd_override.custom.customized_sales_order.CustomizedSalesOrder",
+    "Sales Invoice": "icd_override.custom.custom_sales_invoice.CustomSalesInvoice"
  }
 
 # Document Events
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
+doc_events = {
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
 # 	}
-# }
+ "Sales Order": {        
+        "on_submit": "icd_override.custom.custom_sales_order.on_submit",
+        #"on_trash": "icd_override.custom.custom_sales_order.on_trash",      
+    },
+ }
 
 # Scheduled Tasks
 # ---------------
@@ -182,9 +191,10 @@ override_doctype_class = {
 # Overriding Methods
 # ------------------------------
 #
-#override_whitelisted_methods = {
+override_whitelisted_methods = {
+    #"icd_tz.icd_tz.doctype.container_movement_order.container_movement_order.get_manifest_details":"icd_override.custom.custom_whitelisted.get_manifest_details"
  	#"frappe.desk.doctype.event.event.get_events": "icd_override.event.get_events"
-#}
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
@@ -264,4 +274,5 @@ fixtures =[
     #{"doctype":"IMDG Classification"},
     #{"doctype":"Nomination Type"},
     #{"doctype":"Purchase Order BL Detail"},
+    #{"dt": "Workspace", "filters": [["name", "=", "ICD"]]},
 ]
