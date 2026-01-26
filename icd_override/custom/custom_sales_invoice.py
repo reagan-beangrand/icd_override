@@ -4,7 +4,7 @@ from erpnext.accounts.doctype.sales_invoice.sales_invoice import SalesInvoice
 class CustomSalesInvoice(SalesInvoice):
     def on_submit(self):
         update_sales_references(self)
-        super().on_submit()
+        #super().on_submit()
 
 
 def update_sales_references(self):
