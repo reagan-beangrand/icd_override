@@ -1,0 +1,210 @@
+[
+ {
+  "code": "C2.2",
+  "description": "2.2 Non-flammable and inert gases",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:30:41.545204",
+  "name": "C2.2"
+ },
+ {
+  "code": "C2.1",
+  "description": "2.1 Flammable gases",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:31:06.202159",
+  "name": "C2.1"
+ },
+ {
+  "code": "C1.1",
+  "description": "1.1 (Explosive-1)",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:31:54.680290",
+  "name": "C1.1"
+ },
+ {
+  "code": "C3.1",
+  "description": "3.1 Flammable liquids with low flash point",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:33:17.578413",
+  "name": "C3.1"
+ },
+ {
+  "code": "C3.2",
+  "description": "3.2 Flammable liquids with medium flash point",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:33:37.347890",
+  "name": "C3.2"
+ },
+ {
+  "code": "C3.3",
+  "description": "3.3 Flammable liquids with high flash point",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:33:53.733030",
+  "name": "C3.3"
+ },
+ {
+  "code": "C4.1",
+  "description": "4.1: Flammable solids susceptible to self-heating",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:34:14.262964",
+  "name": "C4.1"
+ },
+ {
+  "code": "C4.2",
+  "description": "4.2: Substances liable to spontaneous ignition.",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:34:29.464873",
+  "name": "C4.2"
+ },
+ {
+  "code": "C4.3",
+  "description": "4.3: Substances that emit flammable gases when in contact with water",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:34:42.841584",
+  "name": "C4.3"
+ },
+ {
+  "code": "C5.2",
+  "description": "5.2: Organic peroxides",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:35:12.826553",
+  "name": "C5.2"
+ },
+ {
+  "code": "C6.2",
+  "description": "6.2: Infectious substances",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:35:45.194895",
+  "name": "C6.2"
+ },
+ {
+  "code": "C7.1",
+  "description": "7.1: Radioactive materials of limited activity",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:36:07.188717",
+  "name": "C7.1"
+ },
+ {
+  "code": "C7.2",
+  "description": "7.2: High activity radioactive materials",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:36:22.693827",
+  "name": "C7.2"
+ },
+ {
+  "code": "C8.1",
+  "description": "8.1: Substances corrosive to skin",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:36:39.876411",
+  "name": "C8.1"
+ },
+ {
+  "code": "C8.2",
+  "description": "8.2: Substances corrosive to metals",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:36:53.425763",
+  "name": "C8.2"
+ },
+ {
+  "code": "C8.3",
+  "description": "8.3: Corrosive substances that can attack other materials",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:37:09.040667",
+  "name": "C8.3"
+ },
+ {
+  "code": "C1.2",
+  "description": "1.2 Description",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:38:52.563290",
+  "name": "C1.2"
+ },
+ {
+  "code": "C1.3",
+  "description": "1.3 - Description",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:38:45.340542",
+  "name": "C1.3"
+ },
+ {
+  "code": "C1.4",
+  "description": "1.4 Description",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:39:06.350955",
+  "name": "C1.4"
+ },
+ {
+  "code": "C1.5",
+  "description": "1.5 Description",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:39:20.506163",
+  "name": "C1.5"
+ },
+ {
+  "code": "C1.6",
+  "description": "1.6 Description",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:39:35.394697",
+  "name": "C1.6"
+ },
+ {
+  "code": "C2.3",
+  "description": "2.3 Toxic gases",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:31:25.492647",
+  "name": "C2.3"
+ },
+ {
+  "code": "C6.1",
+  "description": "6.1: Toxic substances",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:35:30.618648",
+  "name": "C6.1"
+ },
+ {
+  "code": "C9",
+  "description": "9: Miscellaneous hazardous substances",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:37:35.025769",
+  "name": "C9"
+ },
+ {
+  "code": "C5.1",
+  "description": "5.1: Oxidizing substances",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:34:58.740309",
+  "name": "C5.1"
+ },
+ {
+  "code": "C3",
+  "description": "3 - Description",
+  "docstatus": 0,
+  "doctype": "IMDG Code",
+  "modified": "2026-01-27 11:42:13.182896",
+  "name": "C3"
+ }
+]

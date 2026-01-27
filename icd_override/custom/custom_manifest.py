@@ -166,52 +166,9 @@ class CustomManifest(Manifest):
                 master_bl.invoice_currency = row[16]
                 master_bl.freight_charge = row[17]
                 master_bl.freight_currency = row[18]
-                master_bl.imdg_code = row[19]
+                master_bl.imdg_code = row[19]                
                 if(row[19] is not None and row[19] != ""):
-                    imdgcode = row[19]
-                    match imdgcode:
-                        case 1.1:
-                            master_bl.custom_imdg_classification = "1.1 (Explosives Substances and Articles Which Have A Mass Explosion Hazard)"
-                        case 1.2:
-                            master_bl.custom_imdg_classification = "1.2 (Explosives Substances and Articles Which Have A Projection Hazard)"
-                        case 1.3:
-                            master_bl.custom_imdg_classification = "1.3 (Explosives Substances and Articles Which Have A Fire Hazard)"
-                        case 1.4:
-                            master_bl.custom_imdg_classification = "1.4 (Explosives Substances Which Present No Significant Hazard)"
-                        case 1.5:
-                            master_bl.custom_imdg_classification = "1.5 (Explosives Very Insensitive Substances Which Have A Mass Explosion Hazard)"
-                        case 1.6:
-                            master_bl.custom_imdg_classification = "1.6 (Explosives Extremely Insensitive Articles Which Do Not Have Mass Explosion Hazard)"
-                        case 2.1:
-                            master_bl.custom_imdg_classification = "2.1 (Flammable Gases)"
-                        case 2.2:
-                            master_bl.custom_imdg_classification = "2.2 (Non-Toxic, Non-Flammable Gases)"
-                        case 2.3:
-                            master_bl.custom_imdg_classification = "2.3 (Poisonous Gases)"
-                        case 3:
-                            master_bl.custom_imdg_classification = "3 (Flammable Liquids)"
-                        case 4.1:
-                            master_bl.custom_imdg_classification = "4.1 (Flammable Solids,Self-Reactive Substances And Desensitized Explosives)"
-                        case 4.2:
-                            master_bl.custom_imdg_classification = "4.2 (Flammable Solids, Substances Liable To Spontaneous Combustion)"
-                        case 4.3:
-                            master_bl.custom_imdg_classification = "4.3 (Flammable Solids,Substances Which, In Contact With Water Emit Flammable Gases)"
-                        case 5.1:
-                            master_bl.custom_imdg_classification = "5.1 (Oxidizing Substances)"
-                        case 5.2:
-                            master_bl.custom_imdg_classification = "5.2 (Organic Peroxides)"
-                        case 6.1:
-                            master_bl.custom_imdg_classification = "6.1 (Poisonous Substances)"
-                        case 6.2:
-                            master_bl.custom_imdg_classification = "6.2 (Infectious Substances)"
-                        case 7:
-                            master_bl.custom_imdg_classification = "7 (Radioactive Material)"
-                        case 8:
-                            master_bl.custom_imdg_classification = "8 (Corrosive Substances)"
-                        case 9:
-                            master_bl.custom_imdg_classification = "9 (Miscellaneous Dangerous Substances and Articles)"
-                        case _:
-                            master_bl.custom_imdg_classification = ""
+                    master_bl.custom_code = row[19]
                 master_bl.packing_type = row[20]
                 master_bl.shipping_agent_code = row[21]
                 master_bl.shipping_agent_name = row[22]
@@ -233,7 +190,10 @@ class CustomManifest(Manifest):
                 master_bl.shipping_mark = row[38]
                 master_bl.net_weight = row[39]
                 master_bl.net_weight_unit = row[40]
-                if(row[41] is not None and row[41] != ""):
+                if(row[1] is not None and row[1] != ""):
+                    nomination_code,nomination_type = self.get_nomination_type(row[1],row[19])
+                    master_bl.custom_source = nomination_code
+                """ if(row[41] is not None and row[41] != ""):
                     nomination_type = row[41]
                     match nomination_type:
                         case 1:
@@ -251,7 +211,7 @@ class CustomManifest(Manifest):
                         case 7:
                             master_bl.custom_source = "DG Port Extension"
                         case _:
-                            master_bl.custom_source = ""
+                            master_bl.custom_source = "" """
 
     def populate_containers(self, filtered_rows_data, containers_sheet):
         self.containers = []
@@ -275,3 +235,47 @@ class CustomManifest(Manifest):
                     container.plug_type_of_reefer = container_row[12]
                     container.minimum_temperature = container_row[13]
                     container.maximum_temperature = container_row[14]
+
+    
+    def get_nomination_type(self, cargo_type,imdg_code):
+        nomination_code,nomination_type = "", ""
+        match cargo_type.strip().upper():
+            case "IM":
+                if(imdg_code is None or imdg_code == ""):
+                    nomination_code=1
+                    nomination_type= "Private Nomination"  # Private Nomination
+                    #return "Private Nomination"  # Private DG Nomination
+                elif(imdg_code is not None and 
+                     (imdg_code == "C2.2" or imdg_code == "C2.3" or 
+                      imdg_code == "C3" or imdg_code == "C4.2" or 
+                      imdg_code == "C4.3" or imdg_code == "C5.2" or 
+                      imdg_code == "C8" or imdg_code == "C9")):
+                    nomination_code=3
+                    nomination_type="Private DG Nomination"
+                elif(imdg_code is not None and 
+                     (imdg_code == "C1" or imdg_code == "C2.1" or 
+                      imdg_code == "C4.1" or imdg_code == "C5.1" or 
+                      imdg_code == "C6.1" or imdg_code == "C7")):
+                    nomination_code=4
+                    nomination_type="Port Extension Direct Delivery"
+            case "TR" | "TS":
+                if(imdg_code is None or imdg_code == ""):
+                    nomination_code=5
+                    nomination_type="Port Extension"  # Private DG Nomination
+                elif(imdg_code is not None and 
+                     (imdg_code == "C1" or imdg_code == "C2.1" or 
+                      imdg_code == "C4.1" or imdg_code == "C5.1" or 
+                      imdg_code == "C6.1" or imdg_code == "C7")):
+                    nomination_code=5
+                    nomination_type="Port Extension Direct Delivery"
+                elif(imdg_code is not None and 
+                     (imdg_code == "C2.2" or imdg_code == "C2.3" or 
+                      imdg_code == "C3" or imdg_code == "C4.2" or 
+                      imdg_code == "C4.3" or imdg_code == "C5.2" or 
+                      imdg_code == "C8" or imdg_code == "C9")):
+                    nomination_code=7
+                    nomination_type="DG Port Extension"            
+            case _:
+                nomination_code= ""
+                nomination_type= ""
+        return nomination_code,nomination_type

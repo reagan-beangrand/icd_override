@@ -1057,22 +1057,6 @@
  },
  {
   "default_value": null,
-  "doc_type": "Master BL",
-  "docstatus": 0,
-  "doctype": "Property Setter",
-  "doctype_or_field": "DocField",
-  "field_name": "imdg_code",
-  "is_system_generated": 0,
-  "modified": "2026-01-21 22:43:59.309896",
-  "module": "ICD Customization",
-  "name": "Master BL-imdg_code-hidden",
-  "property": "hidden",
-  "property_type": "Check",
-  "row_name": null,
-  "value": "1"
- },
- {
-  "default_value": null,
   "doc_type": "Purchase Order",
   "docstatus": 0,
   "doctype": "Property Setter",
@@ -1502,5 +1486,37 @@
   "property_type": "Check",
   "row_name": null,
   "value": "1"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Master BL",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "imdg_code",
+  "is_system_generated": 0,
+  "modified": "2026-01-27 11:53:41.030503",
+  "module": "ICD Customization",
+  "name": "Master BL-imdg_code-hidden",
+  "property": "hidden",
+  "property_type": "Check",
+  "row_name": null,
+  "value": "1"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Master BL",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocType",
+  "field_name": null,
+  "is_system_generated": 0,
+  "modified": "2026-01-27 14:27:46.260535",
+  "module": "ICD Customization",
+  "name": "Master BL-main-field_order",
+  "property": "field_order",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "[\"m_bl_no\", \"custom_cargo_type\", \"place_of_destination\", \"custom_source\", \"custom_source_nomination_type\", \"place_of_delivery\", \"port_of_loading\", \"cargo_description\", \"package_unit\", \"invoice_value\", \"invoice_currency\", \"packing_type\", \"shipping_agent_code\", \"shipping_agent_name\", \"exporter_name\", \"exporter_tel\", \"exporter_address\", \"exporter_tin\", \"notify_name\", \"notify_tel\", \"notify_address\", \"notify_tin\", \"shipping_mark\", \"custom_column_break_eqwm3\", \"custom_bltype\", \"cargo_classification\", \"bl_type\", \"custom_code\", \"custom_imdg_code_description\", \"oil_type\", \"number_of_containers\", \"number_of_package\", \"gross_weight\", \"gross_weight_unit\", \"gross_volume\", \"gross_volume_unit\", \"freight_charge\", \"freight_currency\", \"imdg_code\", \"forwarder_code\", \"forwarder_name\", \"forwarder_tel\", \"consignee_name\", \"consignee_tel\", \"consignee_address\", \"consignee_tin\", \"cosignee_name\", \"cosignee_tel\", \"cosignee_address\", \"cosignee_tin\", \"net_weight\", \"net_weight_unit\"]"
  }
 ]

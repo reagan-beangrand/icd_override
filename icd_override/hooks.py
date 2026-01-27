@@ -273,6 +273,7 @@ fixtures =[
     #{"doctype":"Global Search Settings"},
     #{"doctype":"IMDG Classification"},
     #{"doctype":"Nomination Type"},
+    #{"doctype":"IMDG Code"},
     #{"doctype":"Purchase Order BL Detail"},
     #{"dt": "Workspace", "filters": [["name", "=", "ICD"]]},
 ]

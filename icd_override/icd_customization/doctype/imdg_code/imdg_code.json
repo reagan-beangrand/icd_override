@@ -1,43 +1,39 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:IMDG-{MM}-{YY}-{####}",
- "creation": "2026-01-21 17:40:10.717146",
+ "autoname": "field:code",
+ "creation": "2026-01-27 10:49:33.357229",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "code",
-  "column_break_dbbj",
-  "classification"
+  "description"
  ],
  "fields": [
   {
-   "fieldname": "classification",
+   "fieldname": "code",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Description",
+   "label": "Code",
    "reqd": 1,
    "unique": 1
   },
   {
-   "fieldname": "code",
+   "fieldname": "description",
    "fieldtype": "Data",
-   "label": "Code",
+   "in_list_view": 1,
+   "label": "Description",
    "reqd": 1
-  },
-  {
-   "fieldname": "column_break_dbbj",
-   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-27 10:39:56.889432",
+ "modified": "2026-01-27 11:44:30.301826",
  "modified_by": "Administrator",
  "module": "ICD Customization",
- "name": "IMDG Classification",
- "naming_rule": "Expression",
+ "name": "IMDG Code",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

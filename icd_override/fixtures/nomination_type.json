@@ -1,51 +1,58 @@
 [
  {
   "classification": "Shipping Line Nomination",
+  "code": "2",
   "docstatus": 0,
   "doctype": "Nomination Type",
-  "modified": "2026-01-21 22:41:33.944139",
-  "name": "Shipping Line Nomination"
+  "modified": "2026-01-27 13:09:07.898585",
+  "name": "2"
  },
  {
   "classification": "Private DG Nomination",
+  "code": "3",
   "docstatus": 0,
   "doctype": "Nomination Type",
-  "modified": "2026-01-21 22:41:44.026854",
-  "name": "Private DG Nomination"
+  "modified": "2026-01-27 13:09:23.472574",
+  "name": "3"
  },
  {
   "classification": "Port Extension Direct Delivery",
+  "code": "4",
   "docstatus": 0,
   "doctype": "Nomination Type",
-  "modified": "2026-01-21 22:41:53.687400",
-  "name": "Port Extension Direct Delivery"
+  "modified": "2026-01-27 13:09:53.097647",
+  "name": "4"
  },
  {
   "classification": "Port Extension",
+  "code": "5",
   "docstatus": 0,
   "doctype": "Nomination Type",
-  "modified": "2026-01-21 22:42:03.089387",
-  "name": "Port Extension"
+  "modified": "2026-01-27 13:10:19.503387",
+  "name": "5"
  },
  {
   "classification": "DG Shipping Line Nomination",
+  "code": "6",
   "docstatus": 0,
   "doctype": "Nomination Type",
-  "modified": "2026-01-21 22:42:12.830164",
-  "name": "DG Shipping Line Nomination"
+  "modified": "2026-01-27 13:10:34.886784",
+  "name": "6"
  },
  {
   "classification": "DG Port Extension",
+  "code": "7",
   "docstatus": 0,
   "doctype": "Nomination Type",
-  "modified": "2026-01-21 22:42:22.265891",
-  "name": "DG Port Extension"
+  "modified": "2026-01-27 13:10:48.504394",
+  "name": "7"
  },
  {
   "classification": "Private Nomination",
+  "code": "1",
   "docstatus": 0,
   "doctype": "Nomination Type",
-  "modified": "2026-01-21 22:41:21.447480",
-  "name": "Private Nomination"
+  "modified": "2026-01-27 13:08:47.547174",
+  "name": "1"
  }
 ]
