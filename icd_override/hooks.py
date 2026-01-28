@@ -266,8 +266,8 @@ override_whitelisted_methods = {
 # ignore_translatable_strings_from = []
 
 fixtures =[
-    #{"dt": "Custom Field", "filters": [["module", "=", "ICD Customization"]]},
-    #{"dt": "Property Setter", "filters": [["module", "=", "ICD Customization"]]}, 
+    {"dt": "Custom Field", "filters": [["module", "=", "ICD Customization"]]},
+    {"dt": "Property Setter", "filters": [["module", "=", "ICD Customization"]]}, 
     #{"doctype": "Custom DocPerm", "filters": [["parent", "in", ["Container Movement Order"]]]}  
     #{"doctype": "DocPerm", "filters": {"parent": "Container Movement Order"}}
     #{"doctype":"Global Search Settings"},
