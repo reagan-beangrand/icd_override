@@ -49,11 +49,11 @@ app_license = "mit"
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 doctype_js = {
     "Container Movement Order" : "public/js/custom_container_movement_order.js",
-    "Sales Order" : "public/js/custom_sales_order.js",
+    #"Sales Order" : "public/js/custom_sales_order.js",
     "Container Inspection" : "public/js/custom_container_inspection.js"
     }
 doctype_list_js = {
-    "Sales Order": "public/js/custom_sales_order_list.js",
+    #"Sales Order": "public/js/custom_sales_order_list.js",
     #"Purchase Order": "public/js/custom_purchase_order_list.js",    
     }
 
@@ -142,8 +142,8 @@ override_doctype_class = {
 # 	"ToDo": "custom_app.overrides.CustomToDo"
     "Manifest": "icd_override.custom.custom_manifest.CustomManifest",
     "Gate Pass": "icd_override.custom.custom_gate_pass.CustomGatePass",
-    "Sales Order": "icd_override.custom.customized_sales_order.CustomizedSalesOrder",
-    "Sales Invoice": "icd_override.custom.custom_sales_invoice.CustomSalesInvoice"
+    #"Sales Order": "icd_override.custom.customized_sales_order.CustomizedSalesOrder",
+    #"Sales Invoice": "icd_override.custom.custom_sales_invoice.CustomSalesInvoice"
  }
 
 # Document Events
@@ -157,7 +157,7 @@ doc_events = {
 # 		"on_trash": "method"
 # 	}
  "Sales Order": {        
-        "on_submit": "icd_override.custom.custom_sales_order.on_submit",
+        #"on_submit": "icd_override.custom.custom_sales_order.on_submit",
         #"on_trash": "icd_override.custom.custom_sales_order.on_trash",      
     },
  }

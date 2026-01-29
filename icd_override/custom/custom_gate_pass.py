@@ -14,9 +14,9 @@ class CustomGatePass(GatePass):
     def on_update_after_submit(self):
         #frappe.msgprint("ICD_OVERRIDE - Custom on_update_after_submit called.")
         self.validate_pending_payments()
-        #if self.workflow_state == "Gate Out Confirmed":
-        self.set_gate_out_date()
-        self.update_container_status("Delivered")
+        if self.docstatus == 1: #self.workflow_state == "Gate Out Confirmed":
+            self.set_gate_out_date()
+            self.update_container_status("Delivered")
 
     """Validate the pending payments for the Gate Pass"""
     def validate_pending_payments(self):
@@ -32,10 +32,10 @@ class CustomGatePass(GatePass):
         if service_msg:
             msg = "<h4 class='text-center'>Pending Payments:</h4><hr>Payment is pending for the following services <ul> " + service_msg + " </ul>"
 
-            #if self.workflow_state in ["Approved", "Gate Out Confirmed"]:
-             #   frappe.throw(str(msg))
-            #else:
-            frappe.msgprint(str(msg))
+            if self.docstatus == 1: #workflow_state in ["Approved", "Gate Out Confirmed"]:
+                frappe.throw(str(msg))
+            else:
+                frappe.msgprint(str(msg))
 
     """Validate the storage payments for the Gate Pass"""
     def validate_container_charges(self):
