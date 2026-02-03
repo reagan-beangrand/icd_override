@@ -142,6 +142,9 @@ override_doctype_class = {
 # 	"ToDo": "custom_app.overrides.CustomToDo"
     "Manifest": "icd_override.custom.custom_manifest.CustomManifest",
     "Gate Pass": "icd_override.custom.custom_gate_pass.CustomGatePass",
+    "Service Order": "icd_override.custom.custom_service_order.CustomServiceOrder",
+    "Container Inspection": "icd_override.custom.custom_container_inspection.CustomContainerInspection",
+    "Container": "icd_override.custom.custom_container.CustomContainer",
     #"Sales Order": "icd_override.custom.customized_sales_order.CustomizedSalesOrder",
     #"Sales Invoice": "icd_override.custom.custom_sales_invoice.CustomSalesInvoice"
  }
@@ -193,7 +196,7 @@ doc_events = {
 #
 override_whitelisted_methods = {
     #"icd_tz.icd_tz.doctype.container_movement_order.container_movement_order.get_manifest_details":"icd_override.custom.custom_whitelisted.get_manifest_details"
- 	#"frappe.desk.doctype.event.event.get_events": "icd_override.event.get_events"
+ 	#"frappe.desk.doctype.event.event.get_events": "icd_override.event.get_events"   
 }
 #
 # each overriding function accepts a `data` argument;
