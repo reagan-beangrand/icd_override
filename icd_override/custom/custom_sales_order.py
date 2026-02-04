@@ -30,6 +30,7 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
             continue
         
         container_doc = frappe.get_doc("Container", container.name)
+        cargo_type =container_doc.cargo_type
         #is_dg = True if container_doc.custom_dangerous_goods == 1 else False#reagan
         #is_abnormal= True if container_doc.custom_abnormal_load == 1 else False
         is_reefer= True if container_doc.plug_type_of_reefer == 'Y' else False
@@ -108,7 +109,8 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
                 services.append(new_row)
 
         if container_doc.has_single_charge == 1:
-            single_storage_item = None
+            single_storage_item = None       
+        
 
             if container_doc.freight_indicator == "LCL":
                 for row in settings_doc.loose_types:
@@ -127,11 +129,11 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
             else:
                 for row in settings_doc.service_types:
                     if row.service_type == "Storage-Single":# and is_dg==False and is_abnormal==False and is_reefer==False:
-                        if "2" in str(row.size)[0] and "2" in str(container_doc.size)[0]:
+                        if "2" in str(row.size)[0] and "2" in str(container_doc.size)[0] and row.cargo_type==cargo_type:
                             single_storage_item = row.service_name
                             break
 
-                        elif "4" in str(row.size)[0] and "4" in str(container_doc.size)[0]:
+                        elif "4" in str(row.size)[0] and "4" in str(container_doc.size)[0] and row.cargo_type==cargo_type:
                             single_storage_item = row.service_name
                             break
 
@@ -173,7 +175,7 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
                 
             if not single_storage_item:
                 frappe.throw(
-                    f"Storage-Single Pricing Criteria for Size: {container_doc.size} is not set in ICD TZ Settings, Please set it to continue"
+                    f"Storage-Single Pricing Criteria for Size: {container_doc.size}, Cargo Type: {cargo_type} is not set in ICD TZ Settings, Please set it to continue"
                 )
             
             if len(single_days) > 0:
@@ -208,11 +210,11 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
             else:
                 for row in settings_doc.service_types:
                     if row.service_type == "Storage-Double":# and is_dg==False and is_abnormal==False and is_reefer==False:
-                        if "2" in str(row.size)[0] and "2" in str(container_doc.size)[0]:
+                        if "2" in str(row.size)[0] and "2" in str(container_doc.size)[0] and row.cargo_type==cargo_type:
                             double_storage_item = row.service_name
                             break
 
-                        elif "4" in str(row.size)[0] and "4" in str(container_doc.size)[0]:
+                        elif "4" in str(row.size)[0] and "4" in str(container_doc.size)[0] and row.cargo_type==cargo_type:
                             double_storage_item = row.service_name
                             break
 
@@ -254,7 +256,7 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
             
             if not double_storage_item:
                 frappe.throw(
-                    f"Storage-Double Pricing Criteria for Size: {container_doc.size} is not set in ICD TZ Settings, Please set it to continue"
+                    f"Storage-Double Pricing Criteria for Size: {container_doc.size}, Cargo Type: {cargo_type}  is not set in ICD TZ Settings, Please set it to continue"
                 )
             
             if len(double_days) > 0:
@@ -295,7 +297,7 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
             
             if not removal_item:
                 frappe.throw(
-                    f"Removal Pricing Criteria for Size: {container_doc.size} is not set in ICD TZ Settings, Please set it to continue"
+                    f"Removal Pricing Criteria for Size: {container_doc.size}, Cargo Type: {container_doc.cargo_type} is not set in ICD TZ Settings, Please set it to continue"
                 )
             
             services.append({
