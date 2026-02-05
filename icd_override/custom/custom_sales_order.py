@@ -30,9 +30,7 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
             continue
         
         container_doc = frappe.get_doc("Container", container.name)
-        cargo_type =container_doc.cargo_type
-        #is_dg = True if container_doc.custom_dangerous_goods == 1 else False#reagan
-        #is_abnormal= True if container_doc.custom_abnormal_load == 1 else False
+        cargo_type =container_doc.cargo_type        
         is_reefer= True if container_doc.plug_type_of_reefer == 'Y' else False
 
         if(is_reefer):
@@ -116,16 +114,7 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
                 for row in settings_doc.loose_types:
                     if row.service_type == "Storage-Single":# and is_dg==False and is_abnormal==False and is_reefer==False:
                         single_storage_item = row.service_name
-                        break
-                    """ elif row.service_type == "DG-Storage-Single" and is_dg==True and is_abnormal==False and is_reefer==False:
-                        single_storage_item = row.service_name
-                        break
-                    elif row.service_type == "Abnormal-Storage-Single" and is_dg==False and is_abnormal==True and is_reefer==False:
-                        single_storage_item = row.service_name
-                        break
-                    elif row.service_type == "Reefer-Storage-Single" and is_dg==False and is_abnormal==False and is_reefer==True:
-                        single_storage_item = row.service_name
-                        break """
+                        break                    
             else:
                 for row in settings_doc.service_types:
                     if row.service_type == "Storage-Single":# and is_dg==False and is_abnormal==False and is_reefer==False:
@@ -138,40 +127,7 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
                             break
 
                         else:
-                            continue
-                    """ elif row.service_type == "DG-Storage-Single" and is_dg==True and is_abnormal==False and is_reefer==False:
-                        if "2" in str(row.size)[0] and "2" in str(container_doc.size)[0]:
-                            single_storage_item = row.service_name
-                            break
-
-                        elif "4" in str(row.size)[0] and "4" in str(container_doc.size)[0]:
-                            single_storage_item = row.service_name
-                            break
-
-                        else:
-                            continue
-                    elif row.service_type == "Abnormal-Storage-Single" and is_dg==False and is_abnormal==True and is_reefer==False:
-                        if "2" in str(row.size)[0] and "2" in str(container_doc.size)[0]:
-                            single_storage_item = row.service_name
-                            break
-
-                        elif "4" in str(row.size)[0] and "4" in str(container_doc.size)[0]:
-                            single_storage_item = row.service_name
-                            break
-
-                        else:
-                            continue
-                    elif row.service_type == "Reefer-Storage-Single" and is_dg==False and is_abnormal==False and is_reefer==True:
-                        if "2" in str(row.size)[0] and "2" in str(container_doc.size)[0]:
-                            single_storage_item = row.service_name
-                            break
-
-                        elif "4" in str(row.size)[0] and "4" in str(container_doc.size)[0]:
-                            single_storage_item = row.service_name
-                            break
-
-                        else:
-                            continue """
+                            continue                   
                 
             if not single_storage_item:
                 frappe.throw(
@@ -194,22 +150,13 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
 
             if container_doc.freight_indicator == "LCL":
                 for row in settings_doc.loose_types:
-                    if row.service_type == "Storage-Double":# and is_dg==False and is_abnormal==False and is_reefer==False:
+                    if row.service_type == "Storage-Double":
                         double_storage_item = row.service_name
-                        break
-                    """ elif row.service_type == "DG-Storage-Double" and is_dg==True and is_abnormal==False and is_reefer==False:
-                        double_storage_item = row.service_name
-                        break
-                    elif row.service_type == "Abnormal-Storage-Double" and is_dg==False and is_abnormal==True and is_reefer==False:
-                        double_storage_item = row.service_name
-                        break
-                    elif row.service_type == "Reefer-Storage-Double" and is_dg==False and is_abnormal==False and is_reefer==True:
-                        double_storage_item = row.service_name
-                        break """
+                        break                    
 
             else:
                 for row in settings_doc.service_types:
-                    if row.service_type == "Storage-Double":# and is_dg==False and is_abnormal==False and is_reefer==False:
+                    if row.service_type == "Storage-Double":
                         if "2" in str(row.size)[0] and "2" in str(container_doc.size)[0] and row.cargo_type==cargo_type:
                             double_storage_item = row.service_name
                             break
@@ -219,40 +166,7 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
                             break
 
                         else:
-                            continue
-                    """ elif row.service_type == "DG-Storage-Double" and is_dg==True and is_abnormal==False and is_reefer==False:
-                        if "2" in str(row.size)[0] and "2" in str(container_doc.size)[0]:
-                            double_storage_item = row.service_name
-                            break
-
-                        elif "4" in str(row.size)[0] and "4" in str(container_doc.size)[0]:
-                            double_storage_item = row.service_name
-                            break
-
-                        else:
-                            continue
-                    elif row.service_type == "Abnormal-Storage-Double" and is_dg==True and is_abnormal==False and is_reefer==False:
-                        if "2" in str(row.size)[0] and "2" in str(container_doc.size)[0]:
-                            double_storage_item = row.service_name
-                            break
-
-                        elif "4" in str(row.size)[0] and "4" in str(container_doc.size)[0]:
-                            double_storage_item = row.service_name
-                            break
-
-                        else:
-                            continue
-                    elif row.service_type == "Reefer-Storage-Double" and is_dg==True and is_abnormal==False and is_reefer==False:
-                        if "2" in str(row.size)[0] and "2" in str(container_doc.size)[0]:
-                            double_storage_item = row.service_name
-                            break
-
-                        elif "4" in str(row.size)[0] and "4" in str(container_doc.size)[0]:
-                            double_storage_item = row.service_name
-                            break
-
-                        else:
-                            continue """
+                            continue                    
             
             if not double_storage_item:
                 frappe.throw(

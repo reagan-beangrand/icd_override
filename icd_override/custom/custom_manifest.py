@@ -7,64 +7,74 @@ class CustomManifest(Manifest):
     @frappe.whitelist()
     def extract_data_from_manifest_file(self):
         #frappe.msgprint("ICD_TZ  OVERRIDE- Extracting data from manifest file...")
-        if self.manifest:
-            file_url = self.manifest
-            file_path = frappe.get_site_path('private', 'files', file_url.split('/files/')[-1])
-            
-            # Load the Excel file
-            workbook = load_workbook(file_path, data_only=True)
+        try:
+            if self.manifest:
+                file_url = self.manifest
+                file_path = frappe.get_site_path('private', 'files', file_url.split('/files/')[-1])
+                
+                # Load the Excel file
+                workbook = load_workbook(file_path, data_only=True)
 
-            # Function to convert dates
-            def convert_date(excel_date):
-                if isinstance(excel_date, datetime):
-                    return excel_date.strftime('%Y-%m-%d')
-                if isinstance(excel_date, str):
-                    try:
-                        return datetime.strptime(excel_date, '%d/%m/%Y').strftime('%Y-%m-%d')
-                    except ValueError:
-                        return None
-                return None
+                # Function to convert dates
+                def convert_date(excel_date):
+                    if isinstance(excel_date, datetime):
+                        return excel_date.strftime('%Y-%m-%d')
+                    if isinstance(excel_date, str):
+                        try:
+                            return datetime.strptime(excel_date, '%d/%m/%Y').strftime('%Y-%m-%d')
+                        except ValueError:
+                            return None
+                    return None
 
-            # Process the MRN Detail (1) sheet
-            vessel_info_sheet = workbook['MRN Detail (1)']
-            vessel_info_row = next(vessel_info_sheet.iter_rows(min_row=4, values_only=True))
-            self.mrn = vessel_info_row[0]
-            self.vessel_name = vessel_info_row[1]
-            self.call_sign = vessel_info_row[2]
-            self.voyage_no = vessel_info_row[3]
-            self.custom_departure_date = convert_date(vessel_info_row[4])        
-            self.arrival_date = convert_date(vessel_info_row[5])
-            self.tpa_uid = vessel_info_row[6]
-            
-            # Process the Master BL List (4) sheet
-            master_bl_sheet = workbook['Master BL List (4)']            
-            self.master_bl = []
-            filtered_rows_data = []
-            filtered_HBL_rows_data = []
-            PMMICD = "WITZDL034" #PMM ICD number
-            consolidate_container = "C"  # House BL type
-            for row in master_bl_sheet.iter_rows(min_row=4, values_only=True):                
-                if row[4].strip().upper() == PMMICD:
-                    filtered_rows_data.append(row)
-                if row[4].strip().upper() == PMMICD and row[2] == consolidate_container.strip().upper():
-                    filtered_HBL_rows_data.append(row)
+                # Process the MRN Detail (1) sheet
+                vessel_info_sheet = workbook['MRN Detail (1)']
+                vessel_info_row = next(vessel_info_sheet.iter_rows(min_row=4, values_only=True))
+                self.mrn = vessel_info_row[0]
+                self.vessel_name = vessel_info_row[1]
+                self.call_sign = vessel_info_row[2]
+                self.voyage_no = vessel_info_row[3]
+                self.custom_departure_date = convert_date(vessel_info_row[4])        
+                self.arrival_date = convert_date(vessel_info_row[5])
+                self.tpa_uid = vessel_info_row[6]
+                
+                # Process the Master BL List (4) sheet
+                master_bl_sheet = workbook['Master BL List (4)']            
+                self.master_bl = []
+                filtered_rows_data = []
+                filtered_HBL_rows_data = []
+                PMMICD = "WITZDL034" #PMM ICD number
+                consolidate_container = "C"  # House BL type
+                for row in master_bl_sheet.iter_rows(min_row=4, values_only=True):                
+                    if row[4].strip().upper() == PMMICD:
+                        filtered_rows_data.append(row)
+                    if row[4].strip().upper() == PMMICD and row[2] == consolidate_container.strip().upper():
+                        filtered_HBL_rows_data.append(row)
 
-            # Process the Container (2) sheet
-            containers_sheet = workbook['Container (2)']
-            self.populate_containers(filtered_rows_data, containers_sheet)                                      
-            
-            # Process the HBL Container (3) sheet
-            hbl_containers_sheet = workbook['HBL Container (3)']
-            self.populate_hbl_containers(filtered_rows_data, hbl_containers_sheet) 
+                # Process the Container (2) sheet
+                containers_sheet = workbook['Container (2)']
+                self.populate_containers(filtered_rows_data, containers_sheet)                                      
+                
+                # Process the HBL Container (3) sheet
+                hbl_containers_sheet = workbook['HBL Container (3)']
+                self.populate_hbl_containers(filtered_rows_data, hbl_containers_sheet) 
 
-            # Process the Master BL List (4) sheet
-            self.populate_masterbl(filtered_rows_data)
+                # Process the Master BL List (4) sheet
+                self.populate_masterbl(filtered_rows_data)
 
-            # Process the House BL List (5) sheet
-            house_bl_sheet = workbook['House BL List (5)']
-            self.populate_house_bl_containers(filtered_HBL_rows_data, house_bl_sheet)
-            # self.save()
-            return False
+                # Process the House BL List (5) sheet
+                house_bl_sheet = workbook['House BL List (5)']
+                self.populate_house_bl_containers(filtered_HBL_rows_data, house_bl_sheet)
+                # self.save()
+                return False        
+                
+        except Exception as e:
+            frappe.log_error(message=str(e), title="Manifest Data Extraction Error")
+            frappe.throw('Error occurred while extracting manifest data',title="Manifest Data Extraction Error")
+            #frappe.msgprint(frappe._("Error extracting data from manifest file: ") + str(e))
+            #frappe.throw("Error occurs while extracting data from manifest file", title="Manifest Data Extraction Error")
+            #return True
+        """ except Exception as e:
+            frappe.throw("Manifest Data Extraction Error") """
 
     def populate_house_bl_containers(self, filtered_HBL_rows_data, house_bl_sheet):
         self.house_bl = []
@@ -192,26 +202,7 @@ class CustomManifest(Manifest):
                 master_bl.net_weight_unit = row[40]
                 if(row[1] is not None and row[1] != ""):
                     nomination_code,nomination_type = self.get_nomination_type(row[1],row[19])
-                    master_bl.custom_source = nomination_code
-                """ if(row[41] is not None and row[41] != ""):
-                    nomination_type = row[41]
-                    match nomination_type:
-                        case 1:
-                            master_bl.custom_source = "Private Nomination"
-                        case 2:
-                            master_bl.custom_source = "Shipping Line Nomination"
-                        case 3:
-                            master_bl.custom_source = "Private DG Nomination"
-                        case 4:
-                            master_bl.custom_source = "Port Extension Direct Delivery"                            
-                        case 5:
-                            master_bl.custom_source = "Port Extension"
-                        case 6:
-                            master_bl.custom_source = "DG Shipping Line Nomination"
-                        case 7:
-                            master_bl.custom_source = "DG Port Extension"
-                        case _:
-                            master_bl.custom_source = "" """
+                    master_bl.custom_source = nomination_code              
 
     def populate_containers(self, filtered_rows_data, containers_sheet):
         self.containers = []

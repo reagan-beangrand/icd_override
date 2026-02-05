@@ -27,7 +27,8 @@ class CustomServiceOrder(ServiceOrder):
 			container_reception,
 			[
 				"cargo_type", "has_transport_charges", "t_sales_invoice",
-				"has_shore_handling_charges", "s_sales_invoice"
+				#"has_shore_handling_charges", 
+				"s_sales_invoice"
 			],
 			as_dict=True
 		)
@@ -146,10 +147,10 @@ class CustomServiceOrder(ServiceOrder):
 		strips = []
 		verifications = []
 		for booking in booking_details:
-			stripping_paid = True if booking.s_sales_invoice else False
+			#stripping_paid = True if booking.s_sales_invoice else False
 			verification_paid = True if booking.cv_sales_invoice else False
 
-			if (
+			""" if (
 				not booking.s_sales_invoice and
 				booking.has_stripping_charges == "Yes"
 			):
@@ -180,7 +181,7 @@ class CustomServiceOrder(ServiceOrder):
 				if not stripping_item and not stripping_paid:
 					frappe.throw(f"Stripping Pricing Criteria for Size: {self.container_size} is not set in ICD TZ Settings, Please set it to continue")
 				
-				strips.append(stripping_item)
+				strips.append(stripping_item) """
 			
 			if (
 				not booking.cv_sales_invoice and

@@ -34,15 +34,20 @@ frappe.ui.form.on("Container Movement Order", {
 var show_dialog = (frm, data) => {
     let d = new frappe.ui.Dialog({
         title: __("Select Container"),
-        soze: "large",
+        size: "large",
         fields: [
             {
                 fieldtype: "Data",
                 fieldname: "container_no",
                 label: __("Container No"),
-                placeholder: __("Enter Container No to filter")
+                placeholder: __("Enter Container No to filter"),
+                /* onchange: function() {
+                    console.log('Container No changed'+d.fields_dict.container_no.$input.val());
+                    d.fields_dict["container_table"].refresh(); // Refresh the container table when container_no changes
+                }, */
+                
             },
-            {
+            /* {
                 fieldtype: "Column Break",
                 fieldname: "column_break"
             },
@@ -50,14 +55,29 @@ var show_dialog = (frm, data) => {
                 fieldtype: "Button",
                 fieldname: "apply_filter",
                 label: __("Apply Filter")
-            },
+            }, */
             {
                 fieldtype: "Section Break",
                 fieldname: "section_break"
             },
             {
                 fieldtype: "HTML",
-                fieldname: "container_table"
+                fieldname: "container_table",
+                /* get_query: function() {
+                    debugger;
+                    let container_no = d.get_value("container_no") || "";
+                    console.log('Getting query for container_no');
+                return {
+                    
+                    // Specify the custom server method
+                    query: 'icd_override.custom.custom_whitelisted.get_manifest_details',
+                    // Pass additional filters or parameters to the server method
+                    filters: {
+                        "manifest": frm.doc.manifest,
+                        "container_no":container_no// d.get_value("container_no")                      
+                    }
+                }; 
+            }, */
             }
         ]
     });
@@ -70,10 +90,10 @@ var show_dialog = (frm, data) => {
         attachCheckboxListener(wrapper);
     }
 
-    d.fields_dict.apply_filter.$input.click(() => {
+    /* d.fields_dict.apply_filter.$input.click(() => {
         //debugger;
         get_containers(frm.doc.manifest, d.get_value("container_no"), wrapper);
-    });
+    }); */
 
     d.set_primary_action(__("Select"), () => {
         let container = {};
@@ -116,6 +136,19 @@ var show_dialog = (frm, data) => {
     });
 
     d.show();
+    
+    let $input = d.fields_dict.container_no.$input;
+    let filter_timeout=null;
+    
+    $input.on("input", function() {
+        let val = $(this).val();
+        if(filter_timeout)
+            clearTimeout(filter_timeout);
+
+        filter_timeout = setTimeout(() => {
+            get_containers(frm.doc.manifest, val, wrapper);
+        }, 500);
+    });
 
     function show_details(data) {
         let html = `
