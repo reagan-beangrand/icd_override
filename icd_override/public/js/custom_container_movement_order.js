@@ -130,12 +130,22 @@ var show_dialog = (frm, data) => {
     });
 
     d.$wrapper.find('.modal-content').css({
-        "width": "650px",
+        "width": "750px",
         "max-height": "1000px",
         "overflow": "auto",
     });
 
     d.show();
+
+    let $model=d.$wrapper.find('.modal-content');
+    let $header = $model.find('.modal-header');
+    let $footer = $model.find('.modal-footer');
+
+    $footer.find('.btn-primary').appendTo($header).css({
+        "float": "right",
+        "margin-right": "30px",              
+    });
+    $footer.remove();
     
     let $input = d.fields_dict.container_no.$input;
     let filter_timeout=null;

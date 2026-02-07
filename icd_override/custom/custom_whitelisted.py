@@ -48,6 +48,44 @@ def get_manifest_details(manifest, container_no=None):
 	
 	return details
 
+@frappe.whitelist()
+def get_container_details(manifest, container_no):	
+	"""Get the details of a container based on the container no and manifest"""
+	#frappe.msgprint(f"Inside override get_container_details with manifest: {manifest} and container_no: {container_no}")
+	container = frappe.db.get_all(
+		"Containers Detail",
+		filters={"parent": manifest, "container_no": container_no},
+		fields=["*"]
+	)
+
+	if len(container) > 0:
+		container_row = container[0]
+		abbr_for_destination = frappe.db.get_value(
+			"Master BL",
+			{"parent": manifest, "m_bl_no": container_row.m_bl_no},
+			"place_of_destination"
+		)
+		container_row["abbr_for_destination"] = abbr_for_destination
+
+		country_code = str(abbr_for_destination)[:2]
+		country_of_destination = frappe.get_cached_value(
+			"Country", {"code": country_code.lower()}, "name"
+		)
+		container_row["country_of_destination"] = country_of_destination
+
+		place_of_destination = ""
+		if country_code == "TZ":
+			place_of_destination = "Local"
+		elif country_code == "CD":
+			place_of_destination = "DRC"
+		elif country_code == "UG":
+			place_of_destination = "Uganda"
+		else:
+			place_of_destination = "Transit"#"Other"
+
+		container_row["place_of_destination"] = place_of_destination
+
+		return container_row
 #sample to test whitelisting override - not used in production
 @frappe.whitelist()
 def download_vcard(contact: str):

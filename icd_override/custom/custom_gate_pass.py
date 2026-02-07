@@ -11,12 +11,39 @@ from frappe.utils import (
 )
 #Commented  workflow state
 class CustomGatePass(GatePass):
+
+    def before_submit(self):
+        self.validate_draft_loading_permit()
+        super().before_submit()
+
     def on_update_after_submit(self):
-        #frappe.msgprint("ICD_OVERRIDE - Custom on_update_after_submit called.")
+        #frappe.msgprint("ICD_OVERRIDE - Custom on_update_after_submit called.")        
         self.validate_pending_payments()
         if self.docstatus == 1: #self.workflow_state == "Gate Out Confirmed":
             self.set_gate_out_date()
             self.update_container_status("Delivered")
+
+
+    """Validate the draft loading permit for the Gate Pass"""
+    def validate_draft_loading_permit(self):
+        if self.is_empty_container == 1:
+            return
+
+        #service_msg = ""        
+
+        loading_permit = frappe.db.get_all(
+            "Loading Permit",
+            {
+				"container_id": self.container_id,
+                "docstatus": 0,  # Only consider draft loading permits			
+			},           
+        )
+        if len(loading_permit) == 0:
+            return []
+
+        #draft_loading_permit = [order for order in loading_permit if order.docstatus == 0]
+        if len(loading_permit) > 0:
+            frappe.throw(f"Loading Permit <b>{loading_permit[0].name}</b> is not submitted.")
 
     """Validate the pending payments for the Gate Pass"""
     def validate_pending_payments(self):
@@ -43,7 +70,11 @@ class CustomGatePass(GatePass):
         container_info = frappe.db.get_value(
 			"Container",
 			self.container_id,
-			["has_removal_charges", "r_sales_invoice", "has_corridor_levy_charges", "c_sales_invoice", "days_to_be_billed"],
+			[
+                "has_removal_charges", 
+                "r_sales_invoice", 
+                #"has_corridor_levy_charges", 
+                "c_sales_invoice", "days_to_be_billed"],
 			as_dict=True
 		)
         if container_info.days_to_be_billed > 0:
@@ -51,8 +82,8 @@ class CustomGatePass(GatePass):
         
         if container_info.has_removal_charges == "Yes" and not container_info.r_sales_invoice:
             msg += "<li>Removal Charges</li>"
-        if container_info.has_corridor_levy_charges == "Yes" and not container_info.c_sales_invoice:
-            msg += "<li>Corridor Levy Charges</li>"
+        #if container_info.has_corridor_levy_charges == "Yes" and not container_info.c_sales_invoice:
+        #    msg += "<li>Corridor Levy Charges</li>"
         return msg
     
     """Validate the In Yard Container Booking for the Gate Pass"""
@@ -64,7 +95,9 @@ class CustomGatePass(GatePass):
 				"container_id": self.container_id,
 				"docstatus": ["!=", 2],  # Exclude cancelled bookings
 			},
-			["has_stripping_charges", "s_sales_invoice", "has_custom_verification_charges", "cv_sales_invoice"],
+			[
+                #"has_stripping_charges", 
+                "s_sales_invoice", "has_custom_verification_charges", "cv_sales_invoice"],
 		)
         cargo_type = frappe.get_cached_value(
 			"Container",
@@ -79,12 +112,12 @@ class CustomGatePass(GatePass):
             frappe.throw(
 				f"No Booking found for container: <b>{self.container_no}</b>, Cargo Type: <b>{cargo_type}</b><br>If you want to proceed, Please inform relevant person to Approve this Gate Pass"
 			)
-
-        for row in booking_info:
-            if row.has_stripping_charges == "Yes" and not row.s_sales_invoice:
-                msg += "<li>Stripping Charges</li>"
-            if row.has_custom_verification_charges == "Yes" and not row.cv_sales_invoice:
-                msg += "<li>Custom Verification Charges</li>"
+        if cargo_type.lower() != "transit": # Transit containers are not required to have booking
+            for row in booking_info:
+                """ if row.has_stripping_charges == "Yes" and not row.s_sales_invoice:
+                    msg += "<li>Stripping Charges</li>" """
+                if row.has_custom_verification_charges == "Yes" and not row.cv_sales_invoice:
+                    msg += "<li>Verification Charges</li>"
         
         return msg
     
@@ -101,7 +134,12 @@ class CustomGatePass(GatePass):
         reception_info = frappe.db.get_value(
 			"Container Reception",
 			container_reception,
-			["cargo_type", "has_transport_charges", "t_sales_invoice", "has_shore_handling_charges", "s_sales_invoice"],
+			[
+                "cargo_type", 
+                "has_transport_charges", 
+                "t_sales_invoice", 
+                #"has_shore_handling_charges", 
+                "s_sales_invoice"],
 			as_dict=True
 		)
         if (
@@ -110,9 +148,9 @@ class CustomGatePass(GatePass):
 			# Transport is not mandatory service for Transit container
 			and reception_info.cargo_type != "Transit"
 		):
-            msg += "<li>Transport Charges</li>"
-        if reception_info.has_shore_handling_charges == "Yes" and not reception_info.s_sales_invoice:
-            msg += "<li>Shore Handling Charges</li>"
+            msg += "<li>Transfer Charges</li>"
+        """ if reception_info.has_shore_handling_charges == "Yes" and not reception_info.s_sales_invoice:
+            msg += "<li>Shore Handling Charges</li>" """
         return msg
     
     """Validate the Inspection Charges for the Gate Pass"""

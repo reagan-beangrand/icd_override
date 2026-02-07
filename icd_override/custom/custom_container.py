@@ -236,8 +236,10 @@ class CustomContainer(Container):
 					place_of_destination = "Local"
 				elif country_code == "CD":
 					place_of_destination = "DRC"
+				elif country_code == "UG":
+					place_of_destination = "Uganda"#reagan
 				else:
-					place_of_destination = "Other"
+					place_of_destination = "Transit"#"Other"
 				
 				self.abbr_for_destination = house_bl_info.place_of_destination
 				self.country_of_destination = country_of_destination
