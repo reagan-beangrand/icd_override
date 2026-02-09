@@ -69,7 +69,7 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
             if len(reefer_single_days) > 0:
                 new_row = {
                     'item_code': reefer_plugin_single_item,
-                    'qty': container_doc.gross_volume if container_doc.freight_indicator == "FCL" else len(reefer_single_days),
+                    'qty': len(reefer_single_days) * container_doc.gross_volume if container_doc.freight_indicator == "LCL" else len(reefer_single_days),#container_doc.gross_volume if container_doc.freight_indicator == "FCL" else len(reefer_single_days),
                     'container_no': container_doc.container_no,
                     'container_id': container_doc.name,
                     "container_child_refs": ",".join(reefer_single_days)
@@ -98,10 +98,10 @@ def get_storage_services(m_bl_no=None, h_bl_no=None):
             if len(reefer_double_days) > 0:
                 new_row = {
                     'item_code': reefer_plugin_double_item,
-                    'qty': len(reefer_double_days), #* container_doc.gross_volume if container_doc.freight_indicator == "FCL" else len(reefer_single_days),
+                    'qty': len(reefer_double_days) * container_doc.gross_volume if container_doc.freight_indicator == "LCL" else len(reefer_double_days),#len(reefer_double_days), #* container_doc.gross_volume if container_doc.freight_indicator == "FCL" else len(reefer_single_days),
                     'container_no': container_doc.container_no,
                     'container_id': container_doc.name,
-                    "container_child_refs": ",".join(reefer_single_days)
+                    "container_child_refs": ",".join(reefer_double_days)
                 }
 
                 services.append(new_row)
