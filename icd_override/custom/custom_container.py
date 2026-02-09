@@ -3,7 +3,7 @@
 
 import frappe
 from time import sleep
-from frappe.utils import nowdate, getdate, add_days
+from frappe.utils import nowdate, getdate, add_days,time_diff_in_hours
 from icd_tz.icd_tz.doctype.container.container import Container
 
 class CustomContainer(Container):
@@ -21,7 +21,7 @@ class CustomContainer(Container):
 		self.update_container_reception()
 		self.update_billed_days()
 		self.update_billed_details()
-		self.check_corridor_levy_eligibility()
+		#self.check_corridor_levy_eligibility()
 		self.check_removal_charges_elibility()
 
 	def update_m_bl_based_container_details(self):
@@ -135,8 +135,9 @@ class CustomContainer(Container):
 					self.sline = master_bl_info.shipping_agent_name
 
 		if len(self.container_dates) == 0:
+			time_diff_in_hours_value = time_diff_in_hours(self.received_date, self.arrival_date)
 			self.append("container_dates", {
-				"date": self.recieved_date,
+				"date": self.arrival_date if time_diff_in_hours_value <= 48 else self.received_date,
 			})
 
 	def update_hbl_based_container_details(self):
@@ -269,8 +270,9 @@ class CustomContainer(Container):
                 
 
 		if len(self.container_dates) == 0:
+			time_diff_in_hours_value = time_diff_in_hours(self.received_date, self.arrival_date)
 			self.append("container_dates", {
-				"date": self.recieved_date,
+				"date": self.arrival_date if time_diff_in_hours_value <= 48 else self.received_date,
 			})
 
 	def update_billed_days(self):

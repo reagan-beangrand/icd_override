@@ -87,6 +87,16 @@ class CustomServiceOrder(ServiceOrder):
 			return
 		container_doc = frappe.get_doc("Container", self.container_id)
 		is_dg = True if container_doc.custom_dangerous_goods==1 else False
+		imdg_code=""
+		if is_dg and self.m_bl_no and self.manifest:
+			master_bl_info = frappe.db.get_value(
+				"Master BL", 
+				{"parent": self.manifest, "m_bl_no": self.m_bl_no}, 
+				["imdg_code"],
+				as_dict=True
+			)
+			if master_bl_info:
+				imdg_code = master_bl_info.imdg_code
 		container_reception = frappe.db.get_value(
 			"Container",
 			self.container_id,
@@ -138,13 +148,16 @@ class CustomServiceOrder(ServiceOrder):
 						transport_item = row.service_name
 						transport_paid = False
 						break
-					elif (
-						is_dg and
-                        row.service_type == "DG-Transfer" #and row.cargo_type == cargo_type
-					):
-						transport_item = row.service_name
-						transport_paid = False
-						break
+					elif is_dg :
+						if row.service_type == "DG-Transfer-Direct" and (imdg_code == "C1.1" or imdg_code == "C2.1"):
+							transport_item = row.service_name
+							transport_paid = False
+							break
+						elif row.service_type == "DG-Transfer" and (imdg_code != "C1.1" or imdg_code != "C2.1"):
+							transport_item = row.service_name
+							transport_paid = False
+							break
+					
 				
 				if not transport_item and not transport_paid:
 					frappe.throw("Transfer Pricing Criteria is not set in ICD TZ Settings, Please set it to continue")

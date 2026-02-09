@@ -14,10 +14,10 @@ def update_sales_references(self):
 
         settings_doc = frappe.get_cached_doc("ICD TZ Settings")
         #corridor_services = [row.service_name for row in settings_doc.service_types if row.service_type == "Levy"]
-        verification_services = [row.service_name for row in settings_doc.service_types if row.service_type == "Verification"]
+        verification_services = [row.service_name for row in settings_doc.service_types if row.service_type in["Verification" ,"DG-Verification"]]
         #stripping_services = [row.service_name for row in settings_doc.service_types if row.service_type == "Stripping"]
         removal_services = [row.service_name for row in settings_doc.service_types if row.service_type == "Removal"]
-        transport_services = [row.service_name for row in settings_doc.service_types if row.service_type == "Transfer"]
+        transport_services = [row.service_name for row in settings_doc.service_types if row.service_type in["Transfer", "DG-Transfer","DG-Transfer-Direct"]]
         storage_services = [row.service_name for row in settings_doc.service_types if row.service_type in ["Storage-Single", "Storage-Double"]]
         #shore_services = [row.service_name for row in settings_doc.service_types if row.service_type == "Shore"]
 
