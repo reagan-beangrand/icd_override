@@ -20,6 +20,7 @@
   "missing_booking_allowed_by",
   "column_break_ecqj",
   "submitted_by",
+  "expiry_date",
   "container_details_section",
   "container_id",
   "m_bl_no",
@@ -340,13 +341,20 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "description": "Loading Permit will expire on this date if container is not moved out",
+   "fieldname": "expiry_date",
+   "fieldtype": "Datetime",
+   "label": "Expiry Date",
+   "read_only": 1
   }
  ],
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-02-07 20:58:34.155486",
+ "modified": "2026-02-10 11:40:45.449039",
  "modified_by": "Administrator",
  "module": "ICD Customization",
  "name": "Loading Permit",

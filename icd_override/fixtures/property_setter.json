@@ -1726,5 +1726,21 @@
   "property_type": "Text",
   "row_name": null,
   "value": "Container D/C Date"
+ },
+ {
+  "default_value": null,
+  "doc_type": "ICD TZ Settings",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "gate_pass_expiry_hours",
+  "is_system_generated": 0,
+  "modified": "2026-02-10 12:24:00.726939",
+  "module": "ICD Customization",
+  "name": "ICD TZ Settings-gate_pass_expiry_hours-label",
+  "property": "label",
+  "property_type": "DateTime",
+  "row_name": null,
+  "value": "Loading Permit and Gate Pass Expiry Hours"
  }
 ]

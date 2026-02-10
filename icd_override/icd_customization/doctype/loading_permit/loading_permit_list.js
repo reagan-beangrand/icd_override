@@ -36,7 +36,7 @@ var show_dialog = (listview) => {
         primary_action(values) {
             if (values) {
                 frappe.call({
-                    method: 'icd_tz.icd_tz.doctype.loading_permit.loading_permit.create_loading_permit_for_empty_container',
+                    method: 'icd_override.icd_customization.doctype.loading_permit.loading_permit.create_loading_permit_for_empty_container',
                     args: {
                         container_id: values.container_id
                     },

@@ -168,7 +168,8 @@ doc_events = {
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
+    "hourly": ["icd_override.icd_customization.doctype.loading_permit.loading_permit.auto_expire_loading_permit"],
 # 	"all": [
 # 		"icd_override.tasks.all"
 # 	],
@@ -184,7 +185,7 @@ doc_events = {
 # 	"monthly": [
 # 		"icd_override.tasks.monthly"
 # 	],
-# }
+ }
 
 # Testing
 # -------
@@ -271,7 +272,7 @@ override_whitelisted_methods = {
 
 fixtures =[
     #{"dt": "Custom Field", "filters": [["module", "=", "ICD Customization"]]},
-    #{"dt": "Property Setter", "filters": [["module", "=", "ICD Customization"]]}, 
+    {"dt": "Property Setter", "filters": [["module", "=", "ICD Customization"]]}, 
     #{"doctype": "Custom DocPerm", "filters": [["parent", "in", ["Container Movement Order"]]]}  
     #{"doctype": "DocPerm", "filters": {"parent": "Container Movement Order"}}
     #{"doctype":"Global Search Settings"},

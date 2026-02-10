@@ -1,12 +1,15 @@
 import frappe
 from frappe.model.document import Document
-#from frappe.model.workflow import apply_workflow
+from frappe.model.workflow import apply_workflow
 from icd_tz.icd_tz.api.utils import validate_cf_agent
 from frappe.utils import (
     get_fullname,
 	nowdate,
 	nowtime,	
-	get_url_to_form,	
+	get_url_to_form,
+	now_datetime,
+	add_to_date,
+	get_datetime,
 )
 
 
@@ -183,7 +186,22 @@ class LoadingPermit(Document):
 	def update_submitted_info(self):
 		self.submitted_by = get_fullname(frappe.session.user)
 		self.submitted_date = nowdate()
-		self.submitted_time = nowtime()		
+		self.submitted_time = nowtime()
+		self.set_expiry_datetime()
+
+	def set_expiry_datetime(self):
+		settings = frappe.get_single("ICD TZ Settings")
+		if not settings.gate_pass_expiry_hours:
+			return
+
+		expiry_hours = settings.gate_pass_expiry_hours
+
+		# Calculate expiry datetime from current datetime
+		submission_datetime = get_datetime(f"{self.submitted_date} {self.submitted_time}")
+		expiry_datetime = add_to_date(submission_datetime, hours=expiry_hours)
+
+		# Set expiry date as datetime
+		self.expiry_date = expiry_datetime	
 		
 	def validate_mandatory_fields(self):
 		fields_str = ""
@@ -224,3 +242,60 @@ def create_loading_permit_for_empty_container(container_id):
 	loading_permit.save()
 
 	return True
+
+@frappe.whitelist()
+def auto_expire_loading_permit():
+	"""Auto-expire and cancel Loading Permits that have exceeded their expiry time"""
+
+	current_datetime = now_datetime()
+
+	# Find submitted loading permits that have expired and are not confirmed
+	""" expired_gate_passes = frappe.get_all("Gate Pass",
+		filters={
+			"docstatus": 1,
+			"workflow_state": ["!=", ["Gate Out Confirmed"]],
+			"expiry_date": ["not in ", ["", None]],
+			"expiry_date": ["<=", current_datetime]
+		},
+		fields=["name", "container_no", "expiry_date", "workflow_state"]
+	) """
+
+	expired_loading_permits = frappe.get_all("Loading Permit",
+		filters={
+			"docstatus": 1,			
+			"expiry_date": ["not in ", ["", None]],
+			"expiry_date": ["<=", current_datetime]
+		},
+		fields=["name", "container_no", "expiry_date", "workflow_state"]
+	)
+
+
+	for gp in expired_loading_permits:
+		if not gp.expiry_date:
+			continue
+
+		try:
+			doc = frappe.get_doc("Loading Permit", gp.name)
+
+			# Cancel the document
+			if hasattr(doc, 'workflow_state'):
+				apply_workflow(doc, 'Cancel')
+			else:
+				doc.cancel()
+			
+			doc.reload()
+
+			# Add a comment after cancelling
+			doc.add_comment(
+				"Comment",
+				f"Auto-cancelled due to expiry. Loading Permit expired on <b>{gp.expiry_date}</b>. Container was not moved out within the agreed time settled in ICD TZsettings."
+			)
+		except Exception as e:
+			traceback = frappe.get_traceback()
+			msg = f"Failed to auto-cancel Loading Permit {gp.name}: \n<br>{str(e)}\n\n<br>Traceback:\n<br>{traceback}"
+			frappe.log_error(
+				title=f"Loading Permit: <b>{gp.name}</b>Auto Expire Error",
+				message=msg,
+				reference_doctype="Loading Permit",
+				reference_name=gp.name
+			)

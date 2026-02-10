@@ -1,4 +1,5 @@
 import frappe
+from frappe.model.workflow import apply_workflow
 from icd_tz.icd_tz.doctype.gate_pass.gate_pass import GatePass
 from frappe.utils import (
     get_fullname,
@@ -8,6 +9,7 @@ from frappe.utils import (
 	get_url_to_form,
 	add_to_date,
 	get_datetime,
+    
 )
 #Commented  workflow state
 class CustomGatePass(GatePass):
@@ -188,4 +190,52 @@ class CustomGatePass(GatePass):
         container_doc.status = status
         container_doc.save(ignore_permissions=True)
         container_doc.reload()
+
+@frappe.whitelist()
+def auto_expire_gate_passes():
+	"""Auto-expire and cancel Gate Passes that have exceeded their expiry time"""
+
+	current_datetime = now_datetime()
+
+	# Find submitted gate passes that have expired and are not confirmed
+	expired_gate_passes = frappe.get_all("Gate Pass",
+		filters={
+			"docstatus": 1,
+			#"workflow_state": ["!=", ["Gate Out Confirmed"]],
+			"expiry_date": ["not in ", ["", None]],
+			"expiry_date": ["<=", current_datetime]
+		},
+		fields=["name", "container_no", "expiry_date"]#, "workflow_state"]
+	)
+
+
+	for gp in expired_gate_passes:
+		if not gp.expiry_date:
+			continue
+
+		try:
+			doc = frappe.get_doc("Gate Pass", gp.name)
+
+			# Cancel the document
+			if hasattr(doc, 'workflow_state'):
+				apply_workflow(doc, 'Cancel')
+			else:
+				doc.cancel()
+			
+			doc.reload()
+
+			# Add a comment after cancelling
+			doc.add_comment(
+				"Comment",
+				f"Auto-cancelled due to expiry. Gate Pass expired on <b>{gp.expiry_date}</b>. Container was not moved out within the agreed time settled in ICD TZsettings."
+			)
+		except Exception as e:
+			traceback = frappe.get_traceback()
+			msg = f"Failed to auto-cancel Gate Pass {gp.name}: \n<br>{str(e)}\n\n<br>Traceback:\n<br>{traceback}"
+			frappe.log_error(
+				title=f"GatePass: <b>{gp.name}</b>Auto Expire Error",
+				message=msg,
+				reference_doctype="Gate Pass",
+				reference_name=gp.name
+			)
     

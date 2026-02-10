@@ -13,6 +13,8 @@ import icd_tz.icd_tz.api.sales_order
 from icd_override.custom.custom_sales_invoice import update_sales_references as custom_sales_invoice_update_sales_references
 import icd_tz.icd_tz.api.sales_invoice
 
+from icd_override.custom.custom_gate_pass import auto_expire_gate_passes as custom_auto_expire_gate_passes
+import icd_tz.icd_tz.doctype.gate_pass.gate_pass
 
 icd_tz.icd_tz.report.gate_out_pass.gate_out_pass.execute = custom_gate_out_pass_execute
 icd_tz.icd_tz.report.exited_containers.exited_containers.execute = custom_exited_containers_execute
@@ -20,3 +22,4 @@ icd_tz.icd_tz.report.current_container_stock.current_container_stock.execute = c
 
 icd_tz.icd_tz.api.sales_order.get_storage_services = custom_sales_order_get_storage_services
 icd_tz.icd_tz.api.sales_invoice.update_sales_references = custom_sales_invoice_update_sales_references
+icd_tz.icd_tz.doctype.gate_pass.gate_pass.auto_expire_gate_passes = custom_auto_expire_gate_passes
